@@ -28,11 +28,11 @@ jobs:
           docker push innosufiyan/batch-16-17
 
       - name: Set up SSH key for EC2 access
-        run: echo "${{ secrets.EC2_SSH_KEY }}" | base64 --decode > private-key.pem
-        continue-on-error: true
-
-      - name: Set EC2 permissions for SSH key
-        run: chmod 600 private-key.pem
+        run: |
+          cat > private-key.pem <<'EOF'
+          ${{ secrets.EC2_SSH_KEY }}
+          EOF
+          chmod 600 private-key.pem
 
       - name: Deploy Docker image to EC2
         run: |
