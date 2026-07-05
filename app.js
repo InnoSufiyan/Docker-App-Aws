@@ -28,6 +28,14 @@ app.post("/users", (req, res) => {
     })
 })
 
+app.get("/users/:id", (req, res) => {
+    const { id } = req.params
+    res.json({
+        status: true,
+        users: users[id]
+    })
+})
+
 app.listen(3000, () => {
     console.log("application is running on port 3000")
 })
