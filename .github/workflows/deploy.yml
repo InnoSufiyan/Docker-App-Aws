@@ -24,7 +24,7 @@ jobs:
 
       - name: Build and push Docker image to Docker Hub
         run: |
-          docker build -t innosufiyan/innosufiyan/batch-16-17 .
+          docker build -t innosufiyan/batch-16-17 .
           docker push innosufiyan/batch-16-17
 
       - name: Set up SSH key for EC2 access
