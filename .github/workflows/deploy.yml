@@ -24,8 +24,8 @@ jobs:
 
       - name: Build and push Docker image to Docker Hub
         run: |
-          docker build -t your-docker-username/your-image-name .
-          docker push your-docker-username/your-image-name
+          docker build -t innosufiyan/innosufiyan/batch-16-17 .
+          docker push innosufiyan/batch-16-17
 
       - name: Set up SSH key for EC2 access
         run: echo "${{ secrets.EC2_SSH_KEY }}" | base64 --decode > private-key.pem
@@ -37,8 +37,8 @@ jobs:
       - name: Deploy Docker image to EC2
         run: |
           ssh -i private-key.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} <<EOF
-            docker pull your-docker-username/your-image-name
-            docker stop your-container-name || true
-            docker rm your-container-name || true
-            docker run -d --name your-container-name -p 80:80 your-docker-username/your-image-name
+            docker pull innosufiyan/batch-16-17
+            docker stop batch-16-17 || true
+            docker rm batch-16-17 || true
+            docker run -d --name batch-16-17 -p 3000:3000 innosufiyan/batch-16-17
           EOF
