@@ -1,8 +1,19 @@
 import express, { json } from "express"
-
+import dotenv from 'dotenv'
 const app = express()
+import ngrok from '@ngrok/ngrok'
+
+dotenv.config()
 
 app.use(express.json())
+
+
+const listener = await ngrok.forward({
+    addr: 3000,
+    authtoken: process.env.NGROK_AUTHTOKEN,
+});
+
+console.log(listener.url());
 
 const users = []
 
@@ -21,7 +32,9 @@ app.get('/users', (req, res) => {
 })
 
 app.post("/users", (req, res) => {
+    console.log(req.body, "==>> req.body")
     users.push(req.body)
+    console.log(users, "==>>> users")
     res.json({
         status: true,
         message: "User added successfully"

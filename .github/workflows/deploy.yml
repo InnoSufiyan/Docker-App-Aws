@@ -40,5 +40,5 @@ jobs:
             sudo docker pull innosufiyan/batch-16-17:latest
             sudo docker stop batch-16-17 || true
             sudo docker rm batch-16-17 || true
-            sudo docker run -d --name batch-16-17 -p 3000:3000 innosufiyan/batch-16-17:latest
+            sudo docker run -d --name batch-16-17 -p 3000:3000 -e NGROK_AUTHTOKEN=${{ secrets.NGROK_AUTHTOKEN }} innosufiyan/batch-16-17:latest
           EOF
